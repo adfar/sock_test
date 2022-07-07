@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Socket!</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <h1 id="head">Hello</h1>
+        <button id="click">Click</button>
+    </body>
+    <script>
+        const socket = new WebSocket('ws://' + location.host + '/control');
+        document.getElementById('click').onclick = ev => {
+            ev.preventDefault();
+            socket.send('click');
+        };
+        socket.addEventListener('message', ev => {
+            document.getElementById('head').style.color = 'red';
+        });
+    </script>
+</html>
